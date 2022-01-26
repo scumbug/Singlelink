@@ -4,15 +4,6 @@
  */
 
 /**
- * Subscription Tier type.
- *
- * free: Free tier
- * whale: Whale tier
- * enterprise: Enterprise tier
- */
-type SubscriptionTier = 'free' | 'whale' | 'enterprise';
-
-/**
  * Profile visibility type
  *
  * unpublished: Not visible to anyone
@@ -44,7 +35,6 @@ interface User {
   emailHash: string, // Used for gravatar, it could be better but this is how the service works
   fullName: string | null,
   activeProfileId: string | null,
-  subscriptionTier: SubscriptionTier | null,
   inventory: unknown | null,
 
   // The metadata tag will grow over time as functionality is added.
@@ -58,16 +48,17 @@ interface User {
  */
 interface SensitiveUser extends User {
   email: string,
-  paymentId: string | null,
 
   privateMetadata: {
-    favorites: [],
+    favorites: string[],
+    googleId: string | null | undefined,
+    githubId: string | null | undefined,
     emailNotifications: {
-      major: true,
-      minor: true,
-      marketing: true,
-      leaderboard: true
-    }
+      major: boolean,
+      minor: boolean,
+      marketing: boolean,
+      leaderboard: boolean
+    },
   }
 }
 
